@@ -48,13 +48,15 @@ type ServiceContext struct {
 	Version string `json:"version,omitempty"`
 }
 
-// Entry stores a log entry. More information here: https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry
+// Entry stores a log entry. More information:
+// https://cloud.google.com/logging/docs/agent/configuration#special-fields
+// https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry
 type Entry struct {
 	LogName        string          `json:"logName,omitempty"`
 	Timestamp      string          `json:"timestamp,omitempty"`
 	HTTPRequest    *HTTPRequest    `json:"httpRequest,omitempty"`
-	Trace          string          `json:"trace,omitempty"`
-	SpanID         string          `json:"spanId,omitempty"`
+	Trace          string          `json:"logging.googleapis.com/trace,omitempty"`
+	SpanID         string          `json:"logging.googleapis.com/spanId,omitempty"`
 	ServiceContext *ServiceContext `json:"serviceContext,omitempty"`
 	Message        string          `json:"message,omitempty"`
 	Severity       severity        `json:"severity,omitempty"`
