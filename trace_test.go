@@ -24,7 +24,8 @@ func TestTrace(t *testing.T) {
 	logger.WithField(KeyTrace, "my-trace").WithField(KeySpanID, "my-span").Info("my log entry")
 
 	var got map[string]interface{}
-	json.Unmarshal(out.Bytes(), &got)
+	err := json.Unmarshal(out.Bytes(), &got)
+	require.NoError(t, err)
 
 	want := map[string]interface{}{
 		"severity": "INFO",

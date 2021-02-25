@@ -5,9 +5,10 @@ import (
 	"strings"
 	"testing"
 
-	stackdriver "github.com/jonklippenstein-io/logrus-stackdriver-formatter"
 	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/require"
+
+	stackdriver "github.com/jonklippenstein-io/logrus-stackdriver-formatter"
 )
 
 func TestLogError(t *testing.T) {

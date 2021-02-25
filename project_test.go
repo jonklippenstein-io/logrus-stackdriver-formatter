@@ -25,7 +25,8 @@ func TestProject(t *testing.T) {
 	logger.WithField(KeyLogID, "my-id").Info("my log entry")
 
 	var got map[string]interface{}
-	json.Unmarshal(out.Bytes(), &got)
+	err := json.Unmarshal(out.Bytes(), &got)
+	require.NoError(t, err)
 
 	want := map[string]interface{}{
 		"logName":  "projects/my-project-id/logs/my-id",

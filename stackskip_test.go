@@ -6,10 +6,11 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/jonklippenstein-io/logrus-stackdriver-formatter/internal"
 	"github.com/kr/pretty"
 	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/require"
+
+	"github.com/jonklippenstein-io/logrus-stackdriver-formatter/internal"
 )
 
 func TestStackSkip(t *testing.T) {
@@ -30,7 +31,8 @@ func TestStackSkip(t *testing.T) {
 	mylog.Error("my log entry")
 
 	var got map[string]interface{}
-	json.Unmarshal(out.Bytes(), &got)
+	err := json.Unmarshal(out.Bytes(), &got)
+	require.NoError(t, err)
 
 	want := map[string]interface{}{
 		"severity": "ERROR",
@@ -42,13 +44,13 @@ func TestStackSkip(t *testing.T) {
 		"context": map[string]interface{}{
 			"reportLocation": map[string]interface{}{
 				"filePath":     "github.com/jonklippenstein-io/logrus-stackdriver-formatter/stackskip_test.go",
-				"lineNumber":   30.0,
+				"lineNumber":   31.0,
 				"functionName": "TestStackSkip",
 			},
 		},
 		"sourceLocation": map[string]interface{}{
 			"filePath":     "github.com/jonklippenstein-io/logrus-stackdriver-formatter/stackskip_test.go",
-			"lineNumber":   30.0,
+			"lineNumber":   31.0,
 			"functionName": "TestStackSkip",
 		},
 	}
